@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detalhes do Filme</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h2 th:text="${filme.titulo}">Título do Filme</h2>
+            <p><strong>Sinopse:</strong> <span th:text="${filme.sinopse}">Sinopse</span></p>
+            <p><strong>Gênero:</strong> <span th:text="${filme.genero}">Gênero</span></p>
+            <p><strong>Ano de Lançamento:</strong> <span th:text="${filme.anoLancamento}">Ano</span></p>
+
+            <h3>Analises</h3>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="analise : ${analises}">
+                    <p><strong>Nota:</strong> <span th:text="${analise.nota}"></span></p>
+                    <p th:text="${analise.analise}"></p>
+                </li>
+            </ul>
+
+            <h4>Adicionar Análise</h4>
+            <form th:action="@{/filmes/detalhes/{id}/adicionar-analise(id=${filme.id})}" method="post">
+                <div class="form-group">
+                    <label for="analiseTexto">Análise</label>
+                    <textarea class="form-control" name="analiseTexto" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="nota">Nota</label>
+                    <input type="number" class="form-control" name="nota" min="0" max="10" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Análise</button>
+            </form>
+
+            <a href="/filmes/listar" class="btn btn-secondary mt-3">Voltar à Lista</a>
+            <a href="/" class="btn btn-secondary mt-3">Voltar à Tela Inicial</a>
+        </div>
+    </body>
+</html>
